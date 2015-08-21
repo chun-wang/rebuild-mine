@@ -45,10 +45,10 @@ public class RebuildMyLastCompletedBuildAction extends RebuildAction {
         }
 
         boolean isBuildable = project.isBuildable();
-        boolean hasCompletedBuild = project.getLastCompletedBuild() != null;
+        Build myLastCompletedBuild = getMyLastCompletedBuild(project, getLogin());
         if (isBuildable) {
-            if (hasCompletedBuild) {
-                return "lastCompletedBuild/rebuild";
+            if (myLastCompletedBuild != null) {
+                return myLastCompletedBuild.getNumber()+"/rebuild";
             } else {
                 return "build?delay=0sec";
             }
@@ -59,7 +59,7 @@ public class RebuildMyLastCompletedBuildAction extends RebuildAction {
 
     @Override
     public String getDisplayName() {
-        return "Rebuild Last";
+        return "Rebuild Mine";
     }
 
     private String getLogin() {
